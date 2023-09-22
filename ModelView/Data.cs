@@ -3,11 +3,11 @@ using Microsoft.Identity.Client;
 
 namespace ModelView;
 
-public class Data
+internal class Data
 {
-    private DataManager dm;
+    public readonly DataManager dm;
     #region singleton
-    private static Data instance;
+    private static Data? instance;
     private Data()
     {
         dm = DataManager.Get(DataProvidersList.SqlServer);

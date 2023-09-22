@@ -7,7 +7,7 @@ namespace NUnitTests;
 public class ConnectionTest
 {
     [Test]
-    public void RootAuth()
+    public void DbConnection()
     {
         DataManager dm = DataManager.Get(DataProvidersList.SqlServer);
         Assert.Pass();

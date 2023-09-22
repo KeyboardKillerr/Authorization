@@ -5,21 +5,21 @@ VisualStudioVersion = 17.6.33815.320
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Model", "Model", "{B0A7C647-CD12-4CE1-80A7-AE6530137A19}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataModel", "DataModel\DataModel.csproj", "{64605245-1538-4EDB-9695-9672614203B1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataModel", "DataModel\DataModel.csproj", "{64605245-1538-4EDB-9695-9672614203B1}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Controller", "Controller", "{2A4ABC1E-B63C-498A-B989-D20F70D0E1B1}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "View", "View", "{3A00DFAB-E4E6-45DA-8F09-8FF3D3B2FD2C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleView", "ConsoleView\ConsoleView.csproj", "{13A5199B-CC31-435D-A0DB-A4D74730EEBE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleView", "ConsoleView\ConsoleView.csproj", "{13A5199B-CC31-435D-A0DB-A4D74730EEBE}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "AutoTests", "AutoTests", "{AC70C928-DB8F-4281-8775-0F3E2F4180DB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NUnitTests", "ConTest\NUnitTests.csproj", "{8963AFD4-2C7C-473A-9017-BA0B6B676F7E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NUnitTests", "ConTest\NUnitTests.csproj", "{8963AFD4-2C7C-473A-9017-BA0B6B676F7E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Filter", "Filter\Filter.csproj", "{DADCA6DC-A5B2-4CEF-8D50-234001B4CBB6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RequisitesFilter", "Filter\RequisitesFilter.csproj", "{DADCA6DC-A5B2-4CEF-8D50-234001B4CBB6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ModelView", "ModelView\ModelView.csproj", "{C58E07A9-D2FC-462E-A23C-4A425596776D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ModelView", "ModelView\ModelView.csproj", "{C58E07A9-D2FC-462E-A23C-4A425596776D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
