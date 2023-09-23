@@ -17,7 +17,7 @@ namespace ModelView
         {
             data = Data.Get();
         }
-        public (string, string, string?, string?) Regin(string? login, string? password, string? confirm)
+        public (string, string, string?, string?) Regin(string? login, string? password, string? confirm, bool writeChanges = false)
         {
             if (string.IsNullOrEmpty(login))
             {
@@ -48,10 +48,13 @@ namespace ModelView
             {
                 return ("False", "Пароль введён неправильно.", User.GetHashString(password), User.GetHashString(confirm));
             }
-            User newUser = new User();
-            newUser.Login = login.Trim();
-            newUser.Password = User.GetHashString(password);
-            data.dm.User.UpdateAsync(newUser);
+            if (writeChanges)
+            {
+                User newUser = new User();
+                newUser.Login = login.Trim();
+                newUser.Password = User.GetHashString(password);
+                data.dm.User.UpdateAsync(newUser);
+            }
             return ("True", "", User.GetHashString(password), User.GetHashString(confirm));
         }
     }

@@ -26,7 +26,7 @@ while (key != 'e' && key != 'е')
     Console.Write("Confirm password: ");
     confirm = Console.ReadLine();
 
-    result = signup.Regin(login, password, confirm);
+    result = signup.Regin(login, password, confirm, true);
     if (result.Item1 == "True") Log.Information($"{login} {result.Item3} {result.Item4} Успешная регистрация");
     else Log.Warning($"{login} {result.Item3} {result.Item4} {result.Item2}");
 

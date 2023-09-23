@@ -7,16 +7,53 @@ namespace NUnitTests;
 [TestFixture]
 public class SignUpTest
 {
-    [Test]
-    public void SignUps()
+    private Signup _sp;
+
+    [SetUp]
+    public void SetUp()
     {
-        Signup sp = new();
-        string?[] usernames = { "lll", "", null, "KeyboardKiller", "KK_1337", "+7-000-000-00-00", "80001112233", "nail@mail.com", "@." };
-        string?[] password = { "пароль12345!", "lololololol", "РеальныйПароль!1", null, "__12ф", " циомгцОИТЩГТ__!1112 ", "П_аРол808?", "Сработает??7?", "" };
-        string?[] confirm = { "пароль12345!", "lololololol", "РеальныйПароль!1", null, "__12ф", " циомгцОИТЩГТ__!1112 ", "аРол808?", "Сработ", "" };
-        for (int i = 0; i < usernames.Length; i++)
-        {
-            sp.Regin(usernames[i], password[i], confirm[i]);
-        }
+        _sp = new();
+    }
+
+    [TestCase("kk@mail.com", "Па!роль1", "Па!роль1", ExpectedResult = "False")]
+    [TestCase("kk@mail.ru", "Па!роль1", "Па!роль1", ExpectedResult = "True")]
+
+    [TestCase("", "Па!роль1", "Па!роль1", ExpectedResult = "False")]
+    [TestCase("kk@mail.com", "", "Па!роль1", ExpectedResult = "False")]
+    [TestCase("kk@mail.com", "Па!роль1", "", ExpectedResult = "False")]
+
+    [TestCase(null, "Па!роль1", "Па!роль1", ExpectedResult = "False")]
+    [TestCase("kk@mail.com", null, "Па!роль1", ExpectedResult = "False")]
+    [TestCase("kk@mail.com", "Па!роль1", null, ExpectedResult = "False")]
+
+    [TestCase("Username", "Па!роль1", "Па!роль1", ExpectedResult = "True")]
+    [TestCase("User_name", "Па!роль1", "Па!роль1", ExpectedResult = "True")]
+    [TestCase("Username11", "Па!роль1", "Па!роль1", ExpectedResult = "True")]
+    [TestCase("User_name11", "Па!роль1", "Па!роль1", ExpectedResult = "True")]
+
+    [TestCase("kkmail.ru", "Па!роль1", "Па!роль1", ExpectedResult = "False")]
+    [TestCase("kk@mailru", "Па!роль1", "Па!роль1", ExpectedResult = "False")]
+    [TestCase("kk@mail.ru", "Па!роль1", "Па!роль1", ExpectedResult = "False")]
+    [TestCase("kkmailru", "Па!роль1", "Па!роль1", ExpectedResult = "True")]
+    [TestCase("k@m.r", "Па!роль1", "Па!роль1", ExpectedResult = "True")]
+    [TestCase("@.", "Па!роль1", "Па!роль1", ExpectedResult = "False")]
+    [TestCase("@mail.ru", "Па!роль1", "Па!роль1", ExpectedResult = "False")]
+    [TestCase("kk@.ru", "Па!роль1", "Па!роль1", ExpectedResult = "False")]
+    [TestCase("kk@mail.", "Па!роль1", "Па!роль1", ExpectedResult = "False")]
+    [TestCase("kk@mail.ru", "Па!роль1", "Па!роль1", ExpectedResult = "False")]
+
+    [TestCase("+7-999-000-00-00", "Па!роль1", "Па!роль1", ExpectedResult = "False")]
+    [TestCase("+7-999-000-0000", "Па!роль1", "Па!роль1", ExpectedResult = "True")]
+    [TestCase("7-999-000-0000", "Па!роль1", "Па!роль1", ExpectedResult = "False")]
+    [TestCase("+7-999-0!0-0000", "Па!роль1", "Па!роль1", ExpectedResult = "False")]
+    [TestCase("89990000000", "Па!роль1", "Па!роль1", ExpectedResult = "True")]
+
+    [TestCase("Username", "Pa!ssword1", "Pa!ssword1", ExpectedResult = "False")]
+    [TestCase("Username", "Па!роль", "Па!роль", ExpectedResult = "False")]
+    [TestCase("Username", "Пароль1", "Пароль1", ExpectedResult = "False")]
+    [TestCase("Username", "Пароль", "Пароль", ExpectedResult = "False")]
+    public string SignupTest(string? login, string? password, string? confirm)
+    {
+        return _sp.Regin(login, password, confirm).Item1;
     }
 }
