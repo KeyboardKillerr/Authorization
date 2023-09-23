@@ -17,25 +17,42 @@ namespace ModelView
         {
             data = Data.Get();
         }
-        public (string, string) Regin(string? login, string? password, string? confirm)
+        public (string, string, string?, string?) Regin(string? login, string? password, string? confirm)
         {
+            if (string.IsNullOrEmpty(login))
+            {
+                return ("False", "Имя пользователя не введено.", null, null);
+            }
+            if (string.IsNullOrEmpty(password))
+            {
+                return ("False", "Пароль не введён.", null, null);
+            }
+            if (string.IsNullOrEmpty(confirm))
+            {
+                return ("False", "Пароль подтверждения не введён.", null, null);
+            }
+
+            login = login.Trim();
+            password = password.Trim();
+            confirm = confirm.Trim();
+
             if (!Filter.CheckLogin(login))
             {
-                return ("False", "Имя пользователя введено неправильно.");
+                return ("False", "Имя пользователя введено неправильно.", User.GetHashString(password), User.GetHashString(confirm));
             }
             if (data.dm.User.Items.FirstOrDefault(u => u.Login == login) != default)
             {
-                return ("False", "Пользователь с таким именем уже существует."); ;
+                return ("False", "Пользователь с таким именем уже существует.", User.GetHashString(password), User.GetHashString(confirm));
             }
             if (!Filter.CheckPassword(password, confirm))
             {
-                return ("False", "Пароль введён неправильно.");
+                return ("False", "Пароль введён неправильно.", User.GetHashString(password), User.GetHashString(confirm));
             }
             User newUser = new User();
             newUser.Login = login.Trim();
-            newUser.Password = User.GetHashString(password.Trim());
+            newUser.Password = User.GetHashString(password);
             data.dm.User.UpdateAsync(newUser);
-            return ("True", "");
+            return ("True", "", User.GetHashString(password), User.GetHashString(confirm));
         }
     }
 }

@@ -7,8 +7,6 @@ public static class Filter
 {
     public static bool CheckLogin(string? input)
     {
-        if (string.IsNullOrEmpty(input)) {  return false; }
-        input = input.Trim();
         if (input[0] == '+')
         {
             if (input.Length != 15) { return false; }
@@ -44,9 +42,6 @@ public static class Filter
 
     public static bool CheckPassword(string? password, string? confirm)
     {
-        if (string.IsNullOrEmpty(password) || string.IsNullOrEmpty(confirm)) { return false; }
-        password = password.Trim();
-        confirm = confirm.Trim();
         if (password.Length < 7) { return false; }
         bool hasChar = false;
         bool hasDigit = false;

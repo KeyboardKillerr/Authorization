@@ -15,9 +15,9 @@ char key = ' ';
 string? login;
 string? password;
 string? confirm;
-(string, string) result;
+(string, string, string?, string?) result;
 
-while (key != 'e')
+while (key != 'e' && key != 'е')
 {
     Console.Write("Login: ");
     login = Console.ReadLine();
@@ -27,10 +27,12 @@ while (key != 'e')
     confirm = Console.ReadLine();
 
     result = signup.Regin(login, password, confirm);
-    if (result.Item1 == "True") Log.Information($"{login} {password} {password} Успешная регистрация");
-    else Log.Warning($"{login} {password} {password} {result.Item2}");
+    if (result.Item1 == "True") Log.Information($"{login} {result.Item3} {result.Item4} Успешная регистрация");
+    else Log.Warning($"{login} {result.Item3} {result.Item4} {result.Item2}");
 
-    key = Console.ReadKey().KeyChar;
+    Console.WriteLine("Нажми любую клавишу чтобы продолжить; Е чтобы выйти. ");
+    key = Console.ReadKey().KeyChar.ToString().ToLower().ToCharArray()[0];
+    Console.WriteLine();
 }
 
 Log.CloseAndFlush();
