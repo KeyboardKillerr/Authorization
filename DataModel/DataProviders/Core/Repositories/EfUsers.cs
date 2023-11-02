@@ -5,12 +5,12 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 
-namespace DataModel.DataProviders.Ef.Core.Repositories;
+namespace DataModel.DataProviders.Core.Repositories;
 
 public class EfUsers : IUserRep
 {
     protected readonly DataContext Context;
-    public EfUsers(DataContext context) => Context = context;
+    internal EfUsers(DataContext context) => Context = context;
     public IQueryable<User> Items => Context.Users;
 
     public async Task<int> CreateAsync(User table)

@@ -1,13 +1,13 @@
-﻿using DataModel.DataProviders.Ef.Core;
+﻿using DataModel.DataProviders.Core;
 using Microsoft.EntityFrameworkCore;
 using System;
 
-namespace DataModel.DataProviders.Ef.Contexts;
+namespace DataModel.DataProviders.Contexts;
 
 public class SqlServerDbContext : DataContext
 {
     protected override void OnConfiguring(DbContextOptionsBuilder builder)
     {
-        builder.UseSqlServer(@"Data Source = DBSRV\max2022; Initial Catalog = KMVAuthAutoTest; Integrated Security = True; TrustServerCertificate=True");
+        builder.UseSqlServer(@"Data Source = localhost; Initial Catalog = AuthTest; Integrated Security = True; TrustServerCertificate=True");
     }
 }

@@ -2,18 +2,18 @@
 using Microsoft.EntityFrameworkCore;
 using System;
 
-namespace DataModel.DataProviders.Ef.Core;
+namespace DataModel.DataProviders.Core;
 
 public class DataContext : DbContext
 {
-    public DbSet<User> Users { get; set; } = null!;
+    public DbSet<User> Users { get; init; } = null!;
+    public DbSet<Log> Logs { get; init; } = null!;
     protected override void OnModelCreating(ModelBuilder mb)
     {
         var client = new User()
         {
-            Id = Guid.NewGuid(),
-            Login = "root",
-            Password = Entities.User.GetHashString("root")
+            Login = "kk@mail.com",
+            Password = User.GetHashString("Пароль1!")
         };
         mb.Entity<User>().HasData(client);
     }

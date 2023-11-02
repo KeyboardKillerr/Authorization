@@ -9,7 +9,7 @@ public class ConnectionTest
     [Test]
     public void DbConnection()
     {
-        DataManager dm = DataManager.Get(DataProvidersList.SqlServer);
+        _ = DataManager.Get(DataProvidersList.SqlServer);
         Assert.Pass();
     }
 }

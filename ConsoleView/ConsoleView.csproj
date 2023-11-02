@@ -16,7 +16,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ModelView\ModelView.csproj" />
+    <ProjectReference Include="..\ModelView\Control.csproj" />
+    <ProjectReference Include="..\SmsWorker\SocialsSender.csproj" />
   </ItemGroup>
 
 </Project>

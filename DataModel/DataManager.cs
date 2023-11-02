@@ -1,17 +1,19 @@
 ﻿using DataModel.Repositories;
 using System;
-using DataModel.DataProviders.Ef.Core.Repositories;
 using System.IO;
+using DataModel.DataProviders.Core.Repositories;
 
 namespace DataModel;
 
 public class DataManager
 {
     public IUserRep User { get; }
+    public ILogRep Log { get; }
 
-    private DataManager(IUserRep user)
+    private DataManager(IUserRep user, ILogRep log)
     {
         User = user;
+        Log = log;
     }
 
     public static DataManager Get(DataProvidersList dataProviders)
@@ -29,11 +31,12 @@ public class DataManager
             case DataProvidersList.MySql:
                 throw new NotSupportedException("Поставщики данных находятся в стадии разработки");
             case DataProvidersList.SqlServer:
-                var sqlserver = new DataProviders.Ef.Contexts.SqlServerDbContext();
+                var sqlserver = new DataProviders.Contexts.SqlServerDbContext();
                 sqlserver.Database.EnsureCreated();
                 return new DataManager
                 (
-                    new EfUsers(sqlserver)
+                    new EfUsers(sqlserver),
+                    new EfLogs(sqlserver)
                 );
             case DataProvidersList.PostgreSQL:
                 throw new NotSupportedException("Поставщики данных находятся в стадии разработки");

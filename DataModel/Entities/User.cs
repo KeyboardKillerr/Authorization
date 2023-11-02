@@ -2,22 +2,33 @@
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
+using DataModel.Helpers;
+using DataModel.Exceptions;
+using Microsoft.Identity.Client;
+
 namespace DataModel.Entities;
 
 public class User : EntityBase
 {
-    public string Login { get; set; } = null!;
-    public string Password { get; set; } = null!;
+    public string Login { get; internal set; } = null!;
+    public string Password { get; internal set; } = null!;
+    public User(string login, string password)
+    {
+        if (UserValidation.ValidateLogin(login)) throw new InvalidUsernameException(login);
+        if (UserValidation.ValidatePassword(password)) throw new InvalidPasswordException();
+
+        Login = login;
+        Password = password;
+    }
 
     private static byte[] GetHash(string inputString)
     {
-        using (HashAlgorithm algorithm = SHA256.Create())
-            return algorithm.ComputeHash(Encoding.UTF8.GetBytes(inputString));
+        return SHA256.HashData(Encoding.UTF8.GetBytes(inputString));
     }
 
     public static string GetHashString(string inputString)
     {
-        StringBuilder sb = new StringBuilder();
+        StringBuilder sb = new();
         foreach (byte b in GetHash(inputString))
             sb.Append(b.ToString("X2"));
 
