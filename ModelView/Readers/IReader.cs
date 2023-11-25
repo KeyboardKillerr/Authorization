@@ -1,12 +1,13 @@
-﻿using System;
+﻿using Control.Validation;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ConsoleView;
+namespace Control.Readers;
 
 public interface IReader
 {
-    public string Read();
+    public InputData Read();
 }

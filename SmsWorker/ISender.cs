@@ -4,5 +4,5 @@ namespace SocialsSender;
 
 public interface ISender
 {
-    public void Send(string message, string PhoneNumber);
+    public void Send(string message);
 }

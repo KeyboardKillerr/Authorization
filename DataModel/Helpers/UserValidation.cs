@@ -8,7 +8,7 @@ namespace DataModel.Helpers;
 
 public static class UserValidation
 {
-    public static bool ValidateAll(string? login, string? password, string? confirmationPassword)
+    public static bool ValidateAll(string? login, string? password)
     {
         if (!ValidateLogin(login)) return false;
         if (!ValidatePassword(password)) return false;
@@ -16,7 +16,7 @@ public static class UserValidation
     }
     public static bool ValidateLogin(string? input)
     {
-        if (string.IsNullOrEmpty(input)) return false;
+        if (string.IsNullOrWhiteSpace(input)) return false;
 
         if (input[0] == '+')
         {
@@ -53,7 +53,7 @@ public static class UserValidation
 
     public static bool ValidatePassword(string? password)
     {
-        if (string.IsNullOrEmpty(password)) { return false; }
+        if (string.IsNullOrWhiteSpace(password)) { return false; }
 
         if (password.Length < 7) { return false; }
         bool hasChar = false;

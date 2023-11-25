@@ -12,10 +12,12 @@ public class User : EntityBase
 {
     public string Login { get; internal set; } = null!;
     public string Password { get; internal set; } = null!;
+
+    internal User() { }
     public User(string login, string password)
     {
-        if (UserValidation.ValidateLogin(login)) throw new InvalidUsernameException(login);
-        if (UserValidation.ValidatePassword(password)) throw new InvalidPasswordException();
+        if (!UserValidation.ValidateLogin(login)) throw new InvalidUsernameException(login);
+        if (!UserValidation.ValidatePassword(password)) throw new InvalidPasswordException();
 
         Login = login;
         Password = password;

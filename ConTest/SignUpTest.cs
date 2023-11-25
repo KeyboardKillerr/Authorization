@@ -1,7 +1,6 @@
 ﻿using NUnit.Framework;
 using Azure.Identity;
-using Control.Auth;
-using Control.Auth.AuthHelper;
+using Control.Validation;
 using DataModel;
 
 namespace NUnitTests;
@@ -9,15 +8,15 @@ namespace NUnitTests;
 [TestFixture]
 public class SignUpTest
 {
-    private Authenticator _sp;
+    private Validator validator;
 
     [SetUp]
     public void SetUp()
     {
-        _sp = new Authenticator(DataManager.Get(DataProvidersList.SqlServer));
+        validator = new Validator(DataManager.Get(DataProvidersList.SqlServer));
     }
 
-    private static void CheckResult(AuthenticationResult result, string expectedStatus, string expectedMessage)
+    private static void CheckResult(ValidationResult result, string expectedStatus, string expectedMessage)
     {
         Assert.Multiple(() =>
         {
@@ -30,7 +29,7 @@ public class SignUpTest
     [TestCase("kk@mail.ru", "Па!роль1", "Па!роль1", "True", "")]
     public void SignupTest_Normal(string login, string password, string confirm, string expectedStatus, string expectedMessage)
     {
-        var res = _sp.Regin(login, password, confirm);
+        var res = validator.Validate(login, password, confirm);
         CheckResult(res, expectedStatus, expectedMessage);
     }
 
@@ -39,7 +38,7 @@ public class SignUpTest
     [TestCase("kk@mail.com", "Па!роль1", "", "False", "Пароль подтверждения не введён.")]
     public void SignupTest_Empty(string login, string password, string confirm, string expectedStatus, string expectedMessage)
     {
-        CheckResult(_sp.Regin(login, password, confirm), expectedStatus, expectedMessage);
+        CheckResult(validator.Validate(login, password, confirm), expectedStatus, expectedMessage);
     }
 
     [TestCase(null, "Па!роль1", "Па!роль1", "False", "Имя пользователя не введено.")]
@@ -47,7 +46,7 @@ public class SignUpTest
     [TestCase("kk@mail.com", "Па!роль1", null, "False", "Пароль подтверждения не введён.")]
     public void SignupTest_Null(string? login, string? password, string? confirm, string expectedStatus, string expectedMessage)
     {
-        CheckResult(_sp.Regin(login, password, confirm), expectedStatus, expectedMessage);
+        CheckResult(validator.Validate(login, password, confirm), expectedStatus, expectedMessage);
     }
 
     [TestCase("Usernam", "Па!роль1", "Па!роль1", "True", "")]
@@ -56,7 +55,7 @@ public class SignUpTest
     [TestCase("7-999-000-0000", "Па!роль1", "Па!роль1", "False", "Имя пользователя введено неправильно.")]
     public void SignupTest_Username(string login, string password, string confirm, string expectedStatus, string expectedMessage)
     {
-        CheckResult(_sp.Regin(login, password, confirm), expectedStatus, expectedMessage);
+        CheckResult(validator.Validate(login, password, confirm), expectedStatus, expectedMessage);
     }
 
     [TestCase("kkmail.ru", "Па!роль1", "Па!роль1", "False", "Имя пользователя введено неправильно.")]
@@ -69,7 +68,7 @@ public class SignUpTest
     [TestCase("kk@mail.", "Па!роль1", "Па!роль1", "False", "Имя пользователя введено неправильно.")]
     public void SignupTest_Email(string login, string password, string confirm, string expectedStatus, string expectedMessage)
     {
-        CheckResult(_sp.Regin(login, password, confirm), expectedStatus, expectedMessage);
+        CheckResult(validator.Validate(login, password, confirm), expectedStatus, expectedMessage);
     }
 
     [TestCase("+7-999-000-00-00", "Па!роль1", "Па!роль1", "False", "Имя пользователя введено неправильно.")]
@@ -77,7 +76,7 @@ public class SignUpTest
     [TestCase("+7-999-0!0-0000", "Па!роль1", "Па!роль1", "False", "Имя пользователя введено неправильно.")]
     public void SignupTest_PhoneNumber(string login, string password, string confirm, string expectedStatus, string expectedMessage)
     {
-        CheckResult(_sp.Regin(login, password, confirm), expectedStatus, expectedMessage);
+        CheckResult(validator.Validate(login, password, confirm), expectedStatus, expectedMessage);
     }
 
     [TestCase("Username", "Pa!ssword1", "Pa!ssword1", "False", "Пароль введён неправильно.")]
@@ -87,6 +86,6 @@ public class SignUpTest
     [TestCase("Username", "ПАРОЛЬ1!", "ПАРОЛЬ1!", "False", "Пароль введён неправильно.")]
     public void SignupTest_Password(string login, string password, string confirm, string expectedStatus, string expectedMessage)
     {
-        CheckResult(_sp.Regin(login, password, confirm), expectedStatus, expectedMessage);
+        CheckResult(validator.Validate(login, password, confirm), expectedStatus, expectedMessage);
     }
 }

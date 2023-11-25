@@ -1,4 +1,4 @@
-﻿using DataModel.DataProviders.Ef.Core;
+﻿using DataModel.DataProviders.Core;
 using DataModel.Entities;
 using DataModel.Repositories;
 using Microsoft.EntityFrameworkCore;

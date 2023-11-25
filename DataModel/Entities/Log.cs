@@ -11,24 +11,25 @@ namespace DataModel.Entities;
 [PrimaryKey(nameof(Login), nameof(Pass), nameof(Confirm))]
 public class Log
 {
-    public string Login { get; private init; } = null!;
-    public string Pass { get; private init; } = null!;
-    public string Confirm { get; private init; } = null!;
-    public string Result { get; private init; } = null!;
-    public string? Error { get; private init; }
+    public string Login { get; internal init; } = null!;
+    public string Pass { get; internal init; } = null!;
+    public string Confirm { get; internal init; } = null!;
+    public bool IsSuccessful { get; internal init; }
+    public string? Error { get; internal init; }
 
-    public Log(string? login, string? password, string? confirmationPassword, string result, string? error)
+    internal Log() { }
+    public Log(bool isSuccessful, string? login = null, string? password = null, string? confirmationPassword = null, string? error = null)
     {
-        if (string.IsNullOrEmpty(login)) Login = "";
+        if (string.IsNullOrWhiteSpace(login)) Login = "";
         else Login = login;
 
-        if (string.IsNullOrEmpty(password)) Pass = "";
+        if (string. IsNullOrWhiteSpace(password)) Pass = "";
         else Pass = password;
 
-        if (string.IsNullOrEmpty(confirmationPassword)) Confirm = "";
+        if (string.IsNullOrWhiteSpace(confirmationPassword)) Confirm = "";
         else Confirm = confirmationPassword;
 
         Error = error;
-        Result = result;
+        IsSuccessful = isSuccessful;
     }
 }

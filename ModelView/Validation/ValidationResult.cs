@@ -4,13 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Control.Auth;
+namespace Control.Validation;
 
-public readonly struct AuthenticationResult
+public readonly struct ValidationResult
 {
     public Status StatusInfo { get; init; }
     public InputData InputInfo { get; init; }
-    internal AuthenticationResult(Status status, InputData inputData)
+    internal ValidationResult(Status status, InputData inputData)
     {
         StatusInfo = status;
         InputInfo = inputData;

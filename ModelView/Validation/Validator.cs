@@ -9,34 +9,33 @@ using DataModel.Helpers;
 using Azure.Core;
 using DataModel;
 
-namespace Control.Auth;
+namespace Control.Validation;
 
-public class Authenticator
+public class Validator
 {
-    private readonly DataManager Data;
+    private DataManager Data { get; init; }
 
-    public Authenticator(DataManager dataManager)
+    public Validator(DataManager dataManager)
     {
         Data = dataManager;
-        Data = DataManager.Get(DataProvidersList.SqlServer);
     }
 
-    public AuthenticationResult Regin(string? login, string? password, string? confirm, bool writeChanges = false)
+    public ValidationResult Validate(string? login, string? password, string? confirm)
     {
-        var inputData = new InputData();
-        var result = new Status(true);
+        InputData inputData = new();
+        Status result = new(true);
 
-        if (string.IsNullOrEmpty(login))
+        if (string.IsNullOrWhiteSpace(login))
         {
             result = new(false, MessageType.EmptyLogin);
             return new(result, inputData);
         }
-        if (string.IsNullOrEmpty(password))
+        if (string.IsNullOrWhiteSpace(password))
         {
             result = new(false, MessageType.EmptyPassword);
             return new(result, inputData);
         }
-        if (string.IsNullOrEmpty(confirm))
+        if (string.IsNullOrWhiteSpace(confirm))
         {
             result = new(false, MessageType.EmptyConfirm);
             return new(result, inputData);
@@ -67,23 +66,6 @@ public class Authenticator
         {
             result = new(false, MessageType.WrongConfirmationPassword);
             return new(result, inputData);
-        }
-        if (writeChanges)
-        {
-            password = User.GetHashString(password);
-
-            User newUser = new(login, password);
-            Data.User.CreateAsync(newUser);
-
-            Log newLog = new()
-            {
-                Login = login,
-                Pass = password,
-                Confirm = confirm,
-                Error = null,
-                Result = "Success"
-            };
-            Data.Log.CreateAsync(newLog);
         }
 
         return new(result, inputData);

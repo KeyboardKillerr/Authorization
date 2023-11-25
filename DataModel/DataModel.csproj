@@ -11,8 +11,4 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="7.0.10" />
   </ItemGroup>
 
-  <ItemGroup>
-	<ProjectReference Include="..\Services\RequisitesValidation.csproj" />
-  </ItemGroup>
-
 </Project>
